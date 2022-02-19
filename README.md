@@ -8,8 +8,7 @@ Download DTCC PPD data (CA, CTFCC, and SEC for Commodities, Credits, Equities, F
 
 The files all follow the same format:
 
-Host: https://kgc0418-tdw-data-0.s3.amazonaws.com/
-
+* Host: https://kgc0418-tdw-data-0.s3.amazonaws.com/
 * Source, Lower: ca
 * Literal: /eod/
 * Source, Upper: CA
