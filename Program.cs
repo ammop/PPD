@@ -25,27 +25,42 @@ namespace DTCC_PPD
         {
             Menu();
         }
-        static void Menu() 
+        static void Menu()
         {
             int choice = -1;
-            string rootDirectory = "";
 
             while (true)
             {
-                Console.Clear();
-                Console.WriteLine("Menu: ");
-                Console.WriteLine("\t 1. Download All");
-                Console.WriteLine("\t 2. Unzip All");
-                Console.WriteLine("\t 3. Ingest All");
-                Console.WriteLine("");
-                Console.WriteLine("\t 0. Exit");
+                try
+                {
+                    Console.Clear();
+                    Console.WriteLine("Menu: ");
+                    Console.WriteLine(" 1. Download All");
+                    Console.WriteLine(" 2. Unzip All");
+                    Console.WriteLine(" 3. Ingest All");
+                    Console.WriteLine("");
+                    Console.WriteLine(" 0. Exit");
+                    Console.Write("\n ");
 
-                choice = Int32.Parse(Console.ReadLine());
+                    choice = Int32.Parse(Console.ReadLine());
 
-                if (choice == 1) { DownloadAll(); }
-                if (choice == 2) { unzip_directory(rootDirectory); }
-                if (choice == 3) { }
-                if (choice == 0) { System.Environment.Exit(0); }
+                    if (choice == 1) { DownloadAll(); }
+                    if (choice == 2) 
+                    { 
+                        DirectoryPather(ROOTDIRECTORY); 
+                        Console.WriteLine("All files unzipped.  Press [enter] to return to menu..."); 
+                        Console.Read();
+                    }
+                    if (choice == 3) 
+                    {
+                        Console.Clear();
+                        Console.WriteLine("SQL Ingestion not yet implemented.");
+                        Console.WriteLine("All files unzipped.  Press [enter] to return to menu...");
+                        Console.Read();
+                    }
+                    if (choice == 0) { System.Environment.Exit(0); }
+                }
+                catch { }
             }
         }
 
@@ -58,7 +73,7 @@ namespace DTCC_PPD
             DateTime CTFC_earliest = new DateTime(2021, 01, 04);
             DateTime CTFC_Commodities_earliest = new DateTime(2020, 11, 23);
             DateTime SEC_earliest = new DateTime(2022, 02, 11);
-            
+
 
             while (d >= earliest)
             {
@@ -96,13 +111,13 @@ namespace DTCC_PPD
         }
 
         // DOWNLOAD GROUPS BY PPD DASHBOARD
-        public static void download_ca(string sDate) 
+        public static void download_ca(string sDate)
         {
             download_ca_credits(sDate);
             download_ca_equities(sDate);
             download_ca_rates(sDate);
         }
-        public static void download_cftc(string sDate) 
+        public static void download_cftc(string sDate)
         {
             //download_cftc_commodities(sDate); Removed, see above
             download_cftc_credits(sDate);
@@ -110,7 +125,7 @@ namespace DTCC_PPD
             download_cftc_forex(sDate);
             download_cftc_rates(sDate);
         }
-        public static void download_sec(string sDate) 
+        public static void download_sec(string sDate)
         {
             download_sec_credits(sDate);
             download_sec_equities(sDate);
@@ -118,7 +133,7 @@ namespace DTCC_PPD
         }
 
         // CFTC PPD DASHBOARD
-        public static void download_cftc_commodities(string sDate) 
+        public static void download_cftc_commodities(string sDate)
         {
             // https://kgc0418-tdw-data-0.s3.amazonaws.com/cftc/eod/CFTC_CUMULATIVE_COMMODITIES_2022_02_18.zip
             string source = "CFTC";
@@ -128,7 +143,7 @@ namespace DTCC_PPD
 
             download(url, file, source, product);
         }
-        public static void download_cftc_credits(string sDate) 
+        public static void download_cftc_credits(string sDate)
         {
             // https://kgc0418-tdw-data-0.s3.amazonaws.com/cftc/eod/CFTC_CUMULATIVE_CREDITS_2022_02_18.zip
             string source = "CFTC";
@@ -137,8 +152,8 @@ namespace DTCC_PPD
             string url = "https://kgc0418-tdw-data-0.s3.amazonaws.com/" + source.ToLower() + "/eod/" + file;
 
             download(url, file, source, product);
-         }
-        public static void download_cftc_equities(string sDate) 
+        }
+        public static void download_cftc_equities(string sDate)
         {
             // https://kgc0418-tdw-data-0.s3.amazonaws.com/cftc/eod/CFTC_CUMULATIVE_EQUITIES_2022_02_18.zip
             string source = "CFTC";
@@ -147,8 +162,8 @@ namespace DTCC_PPD
             string url = "https://kgc0418-tdw-data-0.s3.amazonaws.com/" + source.ToLower() + "/eod/" + file;
 
             download(url, file, source, product);
-          }
-        public static void download_cftc_forex(string sDate) 
+        }
+        public static void download_cftc_forex(string sDate)
         {
             // https://kgc0418-tdw-data-0.s3.amazonaws.com/cftc/eod/CFTC_CUMULATIVE_FOREX_2022_02_18.zip
             string source = "CFTC";
@@ -158,7 +173,7 @@ namespace DTCC_PPD
 
             download(url, file, source, product);
         }
-        public static void download_cftc_rates(string sDate) 
+        public static void download_cftc_rates(string sDate)
         {
             // https://kgc0418-tdw-data-0.s3.amazonaws.com/cftc/eod/CFTC_CUMULATIVE_RATES_2022_02_18.zip
             string source = "CFTC";
@@ -167,10 +182,10 @@ namespace DTCC_PPD
             string url = "https://kgc0418-tdw-data-0.s3.amazonaws.com/" + source.ToLower() + "/eod/" + file;
 
             download(url, file, source, product);
-        }   
+        }
 
         // CANADIAN PPD DASHBOARD
-        public static void download_ca_credits(string sDate) 
+        public static void download_ca_credits(string sDate)
         {
             // https://kgc0418-tdw-data-0.s3.amazonaws.com/ca/eod/CA_CUMULATIVE_CREDITS_2022_02_18.zip
             string source = "CA";
@@ -180,7 +195,7 @@ namespace DTCC_PPD
 
             download(url, file, source, product);
         }
-        public static void download_ca_equities(string sDate) 
+        public static void download_ca_equities(string sDate)
         {
             // https://kgc0418-tdw-data-0.s3.amazonaws.com/ca/eod/CA_CUMULATIVE_EQUITIES_2022_02_18.zip
             string source = "CA";
@@ -190,7 +205,7 @@ namespace DTCC_PPD
 
             download(url, file, source, product);
         }
-        public static void download_ca_rates(string sDate) 
+        public static void download_ca_rates(string sDate)
         {
             // https://kgc0418-tdw-data-0.s3.amazonaws.com/ca/eod/CA_CUMULATIVE_RATES_2022_02_18.zip
             string source = "CA";
@@ -202,7 +217,7 @@ namespace DTCC_PPD
         }
 
         // SEC PPD DASHBOARD
-        public static void download_sec_credits(string sDate) 
+        public static void download_sec_credits(string sDate)
         {
             // https://kgc0418-tdw-data-0.s3.amazonaws.com/sec/eod/SEC_CUMULATIVE_CREDITS_2022_02_18.zip
             string source = "SEC";
@@ -212,7 +227,7 @@ namespace DTCC_PPD
 
             download(url, file, source, product);
         }
-        public static void download_sec_equities(string sDate) 
+        public static void download_sec_equities(string sDate)
         {
             // https://kgc0418-tdw-data-0.s3.amazonaws.com/sec/eod/SEC_CUMULATIVE_EQUITIES_2022_02_18.zip
             string source = "SEC";
@@ -222,7 +237,7 @@ namespace DTCC_PPD
 
             download(url, file, source, product);
         }
-        public static void download_sec_rates(string sDate) 
+        public static void download_sec_rates(string sDate)
         {
             // https://kgc0418-tdw-data-0.s3.amazonaws.com/sec/eod/SEC_CUMULATIVE_RATES_2022_02_18.zip
             string source = "SEC";
@@ -265,6 +280,53 @@ namespace DTCC_PPD
                     Console.Read();
                     return;
                 }
+            }
+        }
+
+        // UNZIP DIRECTORY
+        public static void unzip_directory(string currentDirectory)
+        {
+            List<string> filesList = Directory.GetFiles(currentDirectory, "*.zip").ToList();
+            foreach (var fileName in filesList)
+            {
+                string csvFileName = fileName.Replace(".zip", ".csv");
+                if (new FileInfo(fileName).Length == 0)  //empty zip
+                {
+                    File.Delete(fileName);
+                }
+                else if(!File.Exists(csvFileName))
+                {
+                    ZipFile.ExtractToDirectory(fileName, currentDirectory);
+                }
+
+                if (File.Exists(fileName) && File.Exists(csvFileName))
+                {
+                    File.Delete(fileName);
+                }
+            }
+        }
+
+        public static void DirectoryPather(string d)
+        {
+            try
+            {
+                List<string> dirs = new List<string>(Directory.EnumerateDirectories(d));
+                foreach (var dir in dirs)
+                {
+                    Console.WriteLine("In directory: {0}", dir);
+                    try { unzip_directory(dir); }
+                    catch { }
+
+                    DirectoryPather(dir);
+                }
+            }
+            catch (UnauthorizedAccessException UAEx)
+            {
+                Console.WriteLine(UAEx.Message);
+            }
+            catch (PathTooLongException PathEx)
+            {
+                Console.WriteLine(PathEx.Message);
             }
         }
     }
