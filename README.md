@@ -3,21 +3,21 @@ Download DTCC PPD data (CA, CTFCC, and SEC for Commodities, Credits, Equities, F
 
 ## Source Data
 
-URL: https://pddata.dtcc.com/gtr/canada/dashboard.do
-Example File: https://kgc0418-tdw-data-0.s3.amazonaws.com/ca/eod/CA_CUMULATIVE_CREDITS_2022_01_30.zip
+* URL: https://pddata.dtcc.com/gtr/canada/dashboard.do
+* Example File: https://kgc0418-tdw-data-0.s3.amazonaws.com/ca/eod/CA_CUMULATIVE_CREDITS_2022_01_30.zip
 
 The files all follow the same format:
 
 Host: https://kgc0418-tdw-data-0.s3.amazonaws.com/
 
-Source, Lower: ca
-Literal: /eod/
-Source, Upper: CA
-Underscore
-Literal: CUMULATIVE
-Product: CREDITS
-Date: YYYY_MM_DD
-Extension: .zip
+* Source, Lower: ca
+* Literal: /eod/
+* Source, Upper: CA
+* Underscore
+* Literal: CUMULATIVE
+* Product: CREDITS
+* Date: YYYY_MM_DD
+* Extension: .zip
 
 Underscores where appropriate
 
